@@ -1,0 +1,2 @@
+# compiladores05
+Implementar computacionalmente, em linguagem acordada previamente com o professor, um programa que a partir de uma Gramática LL(1) fornecida pelo usuário determine os conjuntos First e Follow para cada variável da gramática. Considere que a gramática entrada está correta e segue as especificações conceituais de uma gramática LL(1). Isto é, não é necessário implementar algoritmos a fim de verificar que a gramática entrada é LL(1). A entrada do programa fornecida pelo usuário é uma Gramática LL(1), que pode ser digitada ou fornecida por arquivo
