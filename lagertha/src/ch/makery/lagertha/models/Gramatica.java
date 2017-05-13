@@ -6,25 +6,26 @@ public class Gramatica {
 
     private ArrayList<String> variaveis;
     private ArrayList<String> terminais;
-    private ArrayList<String> regrasDeProdcao;
+    private ArrayList<String> regrasDeProducao;
     private String variavelIncial;
 
-    public Gramatica(ArrayList<String> variaveis, ArrayList<String> terminais, ArrayList<String> regrasDeProdcao, String variavelIncial) {
+    public Gramatica(ArrayList<String> variaveis, ArrayList<String> terminais, ArrayList<String> regrasDeProducao, String variavelIncial) {
         this.variaveis = variaveis;
         this.terminais = terminais;
-        this.regrasDeProdcao = separacao(regrasDeProdcao);
+        this.regrasDeProducao = separacao(regrasDeProducao);
         this.variavelIncial = variavelIncial;
+        
+        first("R");
     }
 
     public ArrayList<String> first(String variavel) {
-
+        System.out.println("FIRST");
         ArrayList<String> first = new ArrayList<>();
 
-        for (String regra : this.variaveis) {
-            if (contemVazio(regra)) {
-                first.add("£");
-                return first;
-            }
+        if (contemVazio(variavel)) {
+//                first.add("£");
+            System.out.println("Entrou = " + variavel);
+            return first;
         }
 
         return null;
@@ -41,22 +42,46 @@ public class Gramatica {
     }
 
     public boolean contemVazio(String variavel) {
-
+        System.out.println("VARIAVEL = "+variavel);
+        String palavraVazia = "£";
+        for (String regra : this.regrasDeProducao){
+            String[] resto = regra.split("->");
+            System.out.println(resto[0] + " == "+ variavel );
+            if(resto[0].equals(variavel)){
+                System.out.println(resto[1]);
+                if(resto[1].equals(palavraVazia)){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
-    public ArrayList<String> separacao(ArrayList<String> regrasDeProdcao) {
+    public ArrayList<String> separacao(ArrayList<String> regrasDeProducao) {
 
         ArrayList<String> separadas = new ArrayList<>();
+        char ou = '|';
 
-        String ou = "|";
-        String a = "R -> As  as";
-        String[] s = a.split(ou);
-        System.out.println(a + " - - " + s.length);
-        for (String d : s) {
-            System.out.println(d);
+        for (String regra : regrasDeProducao) {
+            regra = regra.replaceAll(" ",""); 
+            String[] resto = regra.split("->");
+//            System.out.println(resto[0]);
+            char[] letras = resto[1].toCharArray();
+            String newRegra = "";
+            for (char d : letras) {
+                newRegra += d;
+                if (d == ou) {
+                    newRegra = newRegra.substring(0, newRegra.length() - 1);
+                    separadas.add(resto[0] + "->" + newRegra);
+                    newRegra = "";
+                }
+            }
+            separadas.add(resto[0]+ "->"+newRegra);
         }
-
+        
+        for(String r : separadas){
+            System.out.println(r);
+        }
         return separadas;
     }
 

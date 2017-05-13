@@ -31,9 +31,26 @@ public class Lagertha extends Application {
         // Set the application icon.
         //this.primaryStage.getIcons().add(new Image("file:resources/images/icone3.png"));
         
-        ArrayList<String> s = new ArrayList<>();
+        ArrayList<String> regrasDeProducao = new ArrayList<>();
+        ArrayList<String> variaveis = new ArrayList<>();
         
-        gramatica = new Gramatica(s, s, s, "s");
+        variaveis.add("R");
+        variaveis.add("E");
+        variaveis.add("G");
+        variaveis.add("L");
+        
+        String a = "R -> a | s | £";
+        String b = "E -> as";
+        String c = "G -> aEs";
+        String d = "L -> a | s | £";
+        
+        regrasDeProducao.add(a);
+        regrasDeProducao.add(b);
+        regrasDeProducao.add(c);
+        regrasDeProducao.add(d);
+        
+        gramatica = new Gramatica(variaveis, variaveis, regrasDeProducao, "s");
+        
         
         initRootLayout();
         showPersonOverview();
