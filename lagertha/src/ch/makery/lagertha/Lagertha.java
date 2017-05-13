@@ -33,14 +33,18 @@ public class Lagertha extends Application {
         
         ArrayList<String> regrasDeProducao = new ArrayList<>();
         ArrayList<String> variaveis = new ArrayList<>();
+        ArrayList<String> terminais = new ArrayList<>();
         
         variaveis.add("R");
         variaveis.add("E");
         variaveis.add("G");
         variaveis.add("L");
         
-        String a = "R -> a | s | £";
-        String b = "E -> as";
+        terminais.add("a");
+        terminais.add("s");
+        
+        String a = "R -> a | s ";
+        String b = "E -> a";
         String c = "G -> aEs";
         String d = "L -> a | s | £";
         
@@ -49,7 +53,7 @@ public class Lagertha extends Application {
         regrasDeProducao.add(c);
         regrasDeProducao.add(d);
         
-        gramatica = new Gramatica(variaveis, variaveis, regrasDeProducao, "s");
+        gramatica = new Gramatica(variaveis, terminais, regrasDeProducao, "s");
         
         
         initRootLayout();

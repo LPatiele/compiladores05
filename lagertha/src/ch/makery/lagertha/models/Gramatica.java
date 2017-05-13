@@ -14,42 +14,81 @@ public class Gramatica {
         this.terminais = terminais;
         this.regrasDeProducao = separacao(regrasDeProducao);
         this.variavelIncial = variavelIncial;
-        
-        first("R");
+
+        first("L");
     }
 
     public ArrayList<String> first(String variavel) {
-        System.out.println("FIRST");
+        System.out.println("FIRST de "+ variavel);
+        String palavraVazia = "£";
         ArrayList<String> first = new ArrayList<>();
 
         if (contemVazio(variavel)) {
-//                first.add("£");
-            System.out.println("Entrou = " + variavel);
-            return first;
+            first.add(palavraVazia);
+//            return first;
         }
-
+        System.out.println("Não tem Final");
+        for(String regra : this.regrasDeProducao){
+            String[] resto = regra.split("->");
+            if(resto[0].equals(variavel)){
+                char[] restante = resto[1].toCharArray();
+                for(char letra : restante){
+                    if(ehTerminal(letra+"")){
+                        first = uniaoArrayETerminal(first, letra+"");
+                    }else{
+                        
+                    }
+                }
+            }
+        }
+        System.out.println("First Calculado");
+        for(String f : first){
+            System.out.print(f+ " ");
+        }
+        System.out.println("");
         return null;
     }
 
-    public boolean testarRegraProducao(String variavel) {
-
-        return false;
+    public ArrayList<String> uniaoArrayETerminal( ArrayList<String> array, String terminal){
+        
+        boolean teste = false;
+        for(String variavel : array){
+            if(variavel.equals(terminal)){
+                teste = true;
+            }
+        }
+        
+        if(teste){
+            return array;
+        }else{
+            array.add(terminal);
+            return array;
+        }
+        
     }
-
+    
     public ArrayList<String> follow(String variavel) {
 
         return null;
     }
+    
+    public boolean ehTerminal(String variavel){
+        for(String terminal : this.terminais){
+            if(terminal.equals(variavel)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean contemVazio(String variavel) {
-        System.out.println("VARIAVEL = "+variavel);
+//        System.out.println("VARIAVEL = " + variavel);
         String palavraVazia = "£";
-        for (String regra : this.regrasDeProducao){
+        for (String regra : this.regrasDeProducao) {
             String[] resto = regra.split("->");
-            System.out.println(resto[0] + " == "+ variavel );
-            if(resto[0].equals(variavel)){
-                System.out.println(resto[1]);
-                if(resto[1].equals(palavraVazia)){
+//            System.out.println(resto[0] + " == " + variavel);
+            if (resto[0].equals(variavel)) {
+                if (resto[1].equals(palavraVazia)) {
                     return true;
                 }
             }
@@ -63,7 +102,7 @@ public class Gramatica {
         char ou = '|';
 
         for (String regra : regrasDeProducao) {
-            regra = regra.replaceAll(" ",""); 
+            regra = regra.replaceAll(" ", "");
             String[] resto = regra.split("->");
 //            System.out.println(resto[0]);
             char[] letras = resto[1].toCharArray();
@@ -76,10 +115,10 @@ public class Gramatica {
                     newRegra = "";
                 }
             }
-            separadas.add(resto[0]+ "->"+newRegra);
+            separadas.add(resto[0] + "->" + newRegra);
         }
-        
-        for(String r : separadas){
+
+        for (String r : separadas) {
             System.out.println(r);
         }
         return separadas;
