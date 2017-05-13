@@ -1,7 +1,9 @@
 package ch.makery.lagertha;
 
+import ch.makery.lagertha.models.Gramatica;
 import ch.makery.lagertha.view.FXMLlagerthaController;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +21,7 @@ public class Lagertha extends Application {
     
     private Stage primaryStage;
     private BorderPane rootLayout;
+    public Gramatica gramatica;
     
     @Override
     public void start(Stage primaryStage) {
@@ -27,7 +30,11 @@ public class Lagertha extends Application {
         
         // Set the application icon.
         //this.primaryStage.getIcons().add(new Image("file:resources/images/icone3.png"));
-
+        
+        ArrayList<String> s = new ArrayList<>();
+        
+        gramatica = new Gramatica(s, s, s, "s");
+        
         initRootLayout();
         showPersonOverview();
         
